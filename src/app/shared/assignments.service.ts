@@ -9,8 +9,8 @@ import { LoggingService } from './logging.service';
 })
 export class AssignmentsService {
   assignmentSelectionne?: Assignment = undefined;
-  url = "http://localhost:8010/api/assignments"
-
+  //url = "http://localhost:8010/api/assignments"
+  url = "https://api-assignments-mt.herokuapp.com/api/assignments";
   assignments: Assignment[] = [
     {
       id: 1,
@@ -48,17 +48,16 @@ export class AssignmentsService {
 
   getAssignment(id: number): Observable<Assignment | undefined> {
     return this.http.get<Assignment>(this.url + "/" + id)
-    .pipe(
-      map( a =>{
-        a.nom += " modifie dans un pipe";
-        return a;
-      }),
-      tap( _ =>
-        {
+      .pipe(
+        map(a => {
+          a.nom += " modifie dans un pipe";
+          return a;
+        }),
+        tap(_ => {
           console.log("tap : name =" + _.nom);
         }),
         catchError(this.handleError<any>("catchError : get by id avec id=" + id))
-    )
+      )
   }
 
   addAssignment(assignment: Assignment): Observable<any> {
@@ -71,7 +70,7 @@ export class AssignmentsService {
 
     // Par la suite, on enverra une requête PUT dans le cloud
     // pour faire un update dans le base de données distante
-     this.loggingService.log(assignment.nom, "Modifié");
+    this.loggingService.log(assignment.nom, "Modifié");
 
     // return of("Service : assignment modifié avec succès");
     return this.http.put<Assignment>(this.url, assignment);
@@ -79,11 +78,11 @@ export class AssignmentsService {
   }
 
   deleteAssignment(assignment: Assignment): Observable<any> {
-    
+
 
     this.loggingService.log(assignment.nom, "Supprimé");
 
-    return this.http.delete(this.url+"/"+assignment._id);
+    return this.http.delete(this.url + "/" + assignment._id);
   }
 
   private handleError<T>(operation: any, result?: T) {
@@ -93,7 +92,7 @@ export class AssignmentsService {
 
       return of(result as T);
     }
- };
+  };
 
 
 }
