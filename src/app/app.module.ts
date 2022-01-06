@@ -13,6 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatListModule } from '@angular/material/list'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 import { AppComponent } from './app.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
@@ -21,6 +22,9 @@ import { NonRenduDirective } from './shared/non-rendu.directive';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
+import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
+import { AuthGuard } from './shared/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -38,7 +42,13 @@ const routes: Routes = [
   {
     path:"assignment/:id",
     component:AssignmentDetailComponent
+  },
+  {
+    path:"assignment/:id/edit",
+    component:EditAssignmentComponent,
+    canActivate: [AuthGuard]
   }
+
 ]
 @NgModule({
   declarations: [
@@ -47,13 +57,15 @@ const routes: Routes = [
     RenduDirective,
     NonRenduDirective,
     AssignmentDetailComponent,
-    AddAssignmentComponent
+    AddAssignmentComponent,
+    EditAssignmentComponent,
+    
   ],
   imports: [
     BrowserModule, FormsModule,
     BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule,
-    MatListModule, MatCardModule, MatCheckboxModule,
+    MatListModule, MatCardModule, MatCheckboxModule,MatSlideToggleModule,HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

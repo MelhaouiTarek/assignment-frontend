@@ -5,6 +5,13 @@
     <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
       Rendu
     </mat-checkbox>
+<nav>
+  <!-- <a [routerLink]="['/assignment/', assignmentTransmis.id ,'edit']"> -->
+    <button mat-button mat-flat-button color="primary" (click)="onClickEdit()" [disabled]="!isAdmin()" >Edit</button>
+
+  <!-- </a> -->
+</nav>
+
     <button mat-button mat-flat-button color="warn" (click)="onDelete()"
     >
     DELETE

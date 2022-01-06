@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Assignment } from '../assignments/assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 
@@ -13,7 +14,8 @@ export class AddAssignmentComponent implements OnInit {
   dateDeRendu?:Date = undefined;
 
 
-  constructor(private assignmentService:AssignmentsService) { }
+  constructor(private assignmentService:AssignmentsService,
+    private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -30,9 +32,9 @@ export class AddAssignmentComponent implements OnInit {
       newAssignment.id = Math.round(Math.random() * 1000000);
 
       this.assignmentService.addAssignment(newAssignment)
-      .subscribe(message => {
-        console.log(message);
-
+      .subscribe(response => {
+        console.log(response.message);
+        this.router.navigate(["/home"]);
         // ICI par programme, je vas naviguer vers la page qui affiche la liste
         // je ne peux pas le faire en dehors du subscribe
         // car il n'y a que dans le subscribe que je suis sur que l'assignment
