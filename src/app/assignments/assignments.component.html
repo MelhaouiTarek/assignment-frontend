@@ -7,7 +7,18 @@
       </button>
     </a>
   </div>
+  <h2>{{titre}}</h2>
+  <p>Nb total d'assignments : {{totalDocs}}</p>
+  <p>Nb total de pages : {{totalPages}}</p>
 
+  <p>Nb assignments par page : <input type="range" min=1 max=100 value=10 (change)="getAssignments()" [(ngModel)]="limit"> {{limit}}</p>
+  
+  <div class="paginationBtn">
+    <button mat-raised-button color="primary"(click)="firstpage()" [disabled]="page===1">Première</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="prevpage()"[disabled]="!hasPrevPage">Précédente</button>&nbsp;
+    <button mat-raised-button color="primary"(click)="nextpage()"[disabled]="!hasNextPage">Suivate</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="lastpage()"[disabled]="page===totalPages">Dernière</button>;
+  </div>
 
   <h2>{{titre}}</h2>
   <mat-divider></mat-divider>

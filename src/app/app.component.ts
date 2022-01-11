@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Assignment } from './assignments/assignment.model';
+import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
 
 @Component({
@@ -11,9 +12,10 @@ import { AuthService } from './shared/auth.service';
 
 export class AppComponent {
   titre="Application de gestion des assignments";
-  constructor(private authService:AuthService, private router:Router)
+  
+  constructor(private authService:AuthService, private router:Router,private assignmentsService:AssignmentsService)
   {
-
+    
   }
 
   onClickLogin()
@@ -30,5 +32,18 @@ export class AppComponent {
     }
 
      
+  }
+  init()
+  {
+    this.assignmentsService.peuplerBDAvecForkJoin()
+    .subscribe(()=>{
+      console.log("LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE");
+ // replaceUrl = true = force le refresh, même si
+ // on est déjà sur la page d’accueil
+// Marche plus avec la dernière version d’angular
+
+      this.router.navigate(["/home"], {replaceUrl:true});
+    })
+
   }
 }
