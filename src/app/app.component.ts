@@ -46,4 +46,9 @@ export class AppComponent {
     })
 
   }
+  home()
+  {
+    this.router.navigate(["/home"], {replaceUrl:true});
+    
+  }
 }

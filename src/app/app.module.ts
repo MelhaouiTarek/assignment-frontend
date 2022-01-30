@@ -14,6 +14,11 @@ import { MatListModule } from '@angular/material/list'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import  {MatSliderModule} from '@angular/material/slider'
+import  {MatSnackBarModule} from '@angular/material/snack-bar'
+import  {MatDialogModule} from '@angular/material/dialog'
+
+import { MatToolbarModule } from '@angular/material/toolbar'
 
 import { AppComponent } from './app.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
@@ -25,6 +30,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+
+ //import {MDBBootstrapModule  } from 'angular-bootstrap-md';
 
 
 const routes: Routes = [
@@ -60,6 +68,7 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
+    DeleteDialogComponent,
     
   ],
   imports: [
@@ -67,7 +76,9 @@ const routes: Routes = [
     BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule,
     MatListModule, MatCardModule, MatCheckboxModule,MatSlideToggleModule,HttpClientModule,
-    RouterModule.forRoot(routes)
+    MatToolbarModule,MatSliderModule,MatSnackBarModule,MatDialogModule,
+    RouterModule.forRoot(routes),
+    //MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

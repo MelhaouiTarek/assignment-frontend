@@ -1,43 +1,109 @@
+<br><br>
+
 <main class="container">
-
-  <div class="ajouterBtn">
-    <a routerLink="/add">
-      <button mat-flat-button color="primary">
-        Add assignment
-      </button>
-    </a>
-  </div>
-  <h2>{{titre}}</h2>
-  <p>Nb total d'assignments : {{totalDocs}}</p>
-  <p>Nb total de pages : {{totalPages}}</p>
-
-  <p>Nb assignments par page : <input type="range" min=1 max=100 value=10 (change)="getAssignments()" [(ngModel)]="limit"> {{limit}}</p>
-  
-  <div class="paginationBtn">
-    <button mat-raised-button color="primary"(click)="firstpage()" [disabled]="page===1">Première</button>&nbsp;
-    <button mat-raised-button color="primary" (click)="prevpage()"[disabled]="!hasPrevPage">Précédente</button>&nbsp;
-    <button mat-raised-button color="primary"(click)="nextpage()"[disabled]="!hasNextPage">Suivate</button>&nbsp;
-    <button mat-raised-button color="primary" (click)="lastpage()"[disabled]="page===totalPages">Dernière</button>;
-  </div>
-
-  <h2>{{titre}}</h2>
-  <mat-divider></mat-divider>
-  <mat-list *ngFor="let assignment of assignments; let i=index">
-    <nav>
-      <a routerLink="/assignment/{{assignment.id}}">
-        <h3 mat-subheader>{{assignment.dateDeRendu | date}}</h3>
-        <mat-list-item>
-          <p appRendu *ngIf="assignment.rendu; else nonsoumis">
-            {{i}} - {{assignment.nom}},
-            a été rendu par l'élève.
-          </p>
-          <ng-template #nonsoumis>
-            <p appNonRendu>{{i}} - {{assignment.nom}} n'a pas été
-              rendu par l'élève.</p>
-          </ng-template>
-          <mat-divider></mat-divider>
-        </mat-list-item>
+  <div class="subheader">
+    <div class="pagination flex-child1">
+      <mat-card>
+        <p><b>Nb total d'assignments : </b>{{totalDocs}}</p>
+        <p><b>Nb total de pages : </b>{{totalPages}}</p>
+        <p><b>Nb assignments par page : </b><mat-slider (change)="getAssignments()" [(ngModel)]="limit" thumbLabel
+           min="1" max="100" aria-label="units" color="primary"></mat-slider> {{limit}}</p>
+        <div class="paginationBtn " >
+          <button mat-raised-button color="primary" (click)="firstpage()" [disabled]="page===1" class="test">Première</button>&nbsp;
+          <button mat-raised-button color="primary" (click)="prevpage()" class="test"
+            [disabled]="!hasPrevPage">Précédente</button>&nbsp;
+          <button mat-raised-button color="primary" (click)="nextpage()" class="test"
+            [disabled]="!hasNextPage">Suivante</button>&nbsp;
+          <button mat-raised-button color="primary" (click)="lastpage()" class="test"
+            [disabled]="page===totalPages">Dernière</button>
+        </div>
+      </mat-card>
+    </div>
+    <div class="ajouterBtn flex-child2">
+      <a routerLink="/add">
+        <button class="test" mat-flat-button color="primary">
+          Add assignment
+        </button>
       </a>
+    </div>
+  </div>
+
+  <h2>{{titre}}</h2>
+  
+  <mat-list *ngFor="let assignment of assignments; let i=index">
+    <nav  class="card">
+
+      <!-- <a routerLink="/assignment/{{assignment.id}}"> -->
+        <div *ngIf="i==assignmentid; else nodetails">
+          <div *ngIf="assignment.rendu; else redtitle">
+            <mat-card class=" matcard-green-dark" details  (click)=onClick(i)>
+             
+                <mat-card-title appRendu *ngIf="assignment.rendu; else redtitle"><b>Assignment {{i+(limit*page)-9}} : </b>  {{assignment.nom}}</mat-card-title>
+                <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
+           
+            <p>Cet assignment a été rendu par l'élève</p>
+            <button class ="details" mat-raised-button color="primary" (click)="details()">More details </button>
+            <button mat-raised-button color="primary" (click)="edit()" [disabled]="!isAdmin()">Edit</button>
+            <mat-checkbox class="tog" (click)="toggleRendu()" [(ngModel)]="assignment.rendu" [disabled]="!isAdmin()" color="primary">
+              Rendu
+            </mat-checkbox>
+
+            <div class="delete">
+              <button button mat-button mat-flat-button color="warn" (click)="delete(assignment.id) " [disabled]="!isAdmin()">Delete</button>
+            </div>
+    
+          </mat-card>
+
+          </div>
+     
+        
+        <ng-template #redtitle>
+          
+          <mat-card class=" matcard-red-dark" details  (click)=onClick(i)>
+          
+              <mat-card-title appNonRendu ><b>Assignment {{i+(limit*page)-9}} : </b>  {{assignment.nom}}</mat-card-title>
+              <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
+         
+          <p>Cet assignment n'a pas été rendu par l'élève</p>
+          <button class ="details" mat-raised-button color="primary" (click)="details()">More details </button>
+          <button mat-raised-button color="primary" (click)="edit()" [disabled]="!isAdmin()">Edit</button>
+          <div class="delete">
+            <button button mat-button mat-flat-button color="warn" (click)="delete(assignment.id)" [disabled]="!isAdmin()">Delete</button>
+          </div>
+          <mat-checkbox class="tog" (click)="toggleRendu()" [(ngModel)]="assignment.rendu" [disabled]="!isAdmin()"  color="primary">
+            Rendu
+          </mat-checkbox>
+  
+        </mat-card>
+
+
+        </ng-template>
+       
+        
+
+     
+    </div>
+      <ng-template #nodetails>
+        <div *ngIf="assignment.rendu; else nonsoumis">
+          <mat-card nodetails class="matcard matcard-green"  (click)=onClick(i) >
+            <mat-card-title > Assignment {{i+(limit*page)-9}}</mat-card-title>
+            <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
+            <p appRendu> {{assignment.nom}}</p>
+            </mat-card>
+        </div>
+
+              <ng-template #nonsoumis>
+                <mat-card nodetails class="matcard matcard-red"  (click)=onClick(i)>
+                  <mat-card-title > Assignment {{i+(limit*page)-9}}</mat-card-title>
+                  <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
+                <p appNonRendu>{{assignment.nom}}</p>
+                  </mat-card>
+              </ng-template>
+
+      </ng-template>
+
+
+      <!-- </a> -->
     </nav>
   </mat-list>
 

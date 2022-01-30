@@ -1,3 +1,6 @@
+<br>
+<br>
+
 <mat-card *ngIf="assignmentTransmis">
   <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
   <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
@@ -12,8 +15,7 @@
   <!-- </a> -->
 </nav>
 
-    <button mat-button mat-flat-button color="warn" (click)="onDelete()"
-    >
+    <button mat-button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()">
     DELETE
     </button>
   </div>

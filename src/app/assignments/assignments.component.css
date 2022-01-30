@@ -10,3 +10,83 @@
 .pagination {
   align-self: flex-start;
 }
+.delete {
+
+  float: right;
+
+}
+.test:hover:enabled
+{
+  
+  background-color: #313981;
+  
+}
+
+.subheader {
+  border: 3px solid #fff;
+  padding: 20px;
+  display: flex;
+
+}
+
+.flex-child1 {
+ flex:1;
+  padding: 20px;
+}  
+.flex-child2 {
+  margin-right: 20px;
+  padding: 20px;
+}  
+.card:hover
+{
+  color: beige;
+}
+.mat-subheader
+{
+  
+}
+.matcard-red
+{
+  background-color: #ffe6e6
+}
+.matcard-red:hover
+{
+  background-color: #ffcccc
+  
+}
+.matcard-green
+{
+  background-color: #eeffe6
+}
+.matcard-green
+{
+  background-color: #eeffe6
+}
+.matcard-green:hover
+{
+
+  background-color: #ddffcc;
+  
+}
+
+.matcard-red-dark
+{
+  background-color: #ffb3b3
+}
+.matcard-green-dark
+{
+  background-color: #ccffb3
+}
+
+.matcard:hover
+{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.details
+{
+  margin-right: 20px;
+}
+.tog
+{
+  margin-left: 20px;
+}
