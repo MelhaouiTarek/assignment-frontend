@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AssignmentsService } from '../shared/assignments.service';
+import { AuthService } from '../shared/auth.service';
 import { Assignment } from './assignment.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {DeleteDialogComponent} from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-assignments',
@@ -9,7 +14,7 @@ import { Assignment } from './assignment.model';
 })
 export class AssignmentsComponent implements OnInit {
   page: number=1;
- limit: number=5;
+ limit: number=10;
  totalDocs: number=0;
  totalPages: number=0;
  hasPrevPage: boolean=false;
@@ -17,12 +22,21 @@ export class AssignmentsComponent implements OnInit {
  hasNextPage: boolean=false;
  nextPage: number=0;
 
+assignmentid: number=-1;
+
   titre = "Liste des assignments";
   couleur = "violet";
 
   assignments:Assignment[] = [];
+  assignment?:Assignment;
 
-  constructor(private assignmentService:AssignmentsService) { }
+  assignmentClick?:Assignment;
+  constructor(private assignmentService:AssignmentsService,
+              private router:Router,
+              private authService:AuthService,
+              private snackBar: MatSnackBar,
+              public dialog: MatDialog
+            ) { }
 
   // ngOnInit(): void {
   //   // appelé AVANT l'affichage (juste après le constructeur)
@@ -98,6 +112,76 @@ firstpage()
 {
   this.page=1;
   this.getAssignments()
+}
+
+delete(id:number)
+{
+  let dialogRef = this.dialog.open(DeleteDialogComponent);
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+    if(result)
+    {
+      this.assignmentService.getAssignment(id)
+      .subscribe((assignment) => {
+        this.assignmentClick = assignment;
+        if(this.assignmentClick) {
+          this.assignmentService.deleteAssignment(this.assignmentClick)
+          .subscribe(message => {
+             console.log(message);
+             this.getAssignments()
+           });
+      }
+    })
+    }
+  });
+
+   
+
+}
+
+onClick(index:number)
+{
+ if( this.assignmentid==index)
+ {
+  this.assignmentid=-1;
+ }
+ else
+ {
+  this.assignmentid=index;
+ }
+ 
+}
+edit()
+{
+this.router.navigate(["/assignment/"+this.assignments[this.assignmentid].id+"/edit"]);
+}
+details()
+{
+this.router.navigate(["/assignment/"+this.assignments[this.assignmentid].id]);
+}
+
+
+isAdmin():boolean
+{
+  return this.authService.loggedIn;
+}
+toggleRendu()
+{
+  
+  
+  if(this.isAdmin())
+  {
+    this.assignment =this.assignments[this.assignmentid];
+    if(this.assignment) {
+      this.assignment.rendu = !this.assignment.rendu;
+  
+      this.assignmentService.updateAssignment(this.assignment)
+      .subscribe(response => {
+        console.log(response.message);
+      })
+    }
+  }
+  
 }
 
 }
