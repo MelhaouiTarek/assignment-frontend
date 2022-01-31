@@ -20,10 +20,10 @@ La partie du projet front end contient les notions de bases
 
 - [x] Déployer le projet sur Heroku
       - https://assignment-frontend-tm.herokuapp.com/home
-- [ ] Créer une vidéo de ~1min montrant les fonctionalités réalisées
-      - ?
+- [x] Créer une vidéo de ~1min montrant les fonctionalités réalisées
+      - https://www.youtube.com/watch?v=u-QJ6pujw20
 - [x] Meilleure présentation
-- [ ] Meilleure pagination - (?)
+- [x] Meilleure pagination - (Plus de details dans la partie "Surprises")
 - [x] Afficher les details depuis la liste de la page principale
 - [x] Supprimer depuis la liste principale
 - [x] Ajout de dialogue avant suppression
