@@ -38,7 +38,7 @@
           <div *ngIf="assignment.rendu; else redtitle">
             <mat-card class=" matcard-green-dark" details  (click)=onClick(i)>
              
-                <mat-card-title appRendu *ngIf="assignment.rendu; else redtitle"><b>Assignment {{i+(limit*page)-9}} : </b>  {{assignment.nom}}</mat-card-title>
+                <mat-card-title appRendu *ngIf="assignment.rendu; else redtitle"><b>Assignment {{i+1+(limit*(page-1))}} : </b>  {{assignment.nom}}</mat-card-title>
                 <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
            
             <p>Cet assignment a été rendu par l'élève</p>
@@ -61,7 +61,7 @@
           
           <mat-card class=" matcard-red-dark" details  (click)=onClick(i)>
           
-              <mat-card-title appNonRendu ><b>Assignment {{i+(limit*page)-9}} : </b>  {{assignment.nom}}</mat-card-title>
+              <mat-card-title appNonRendu ><b>Assignment {{i+1+(limit*(page-1))}} : </b>  {{assignment.nom}}</mat-card-title>
               <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
          
           <p>Cet assignment n'a pas été rendu par l'élève</p>
@@ -86,7 +86,7 @@
       <ng-template #nodetails>
         <div *ngIf="assignment.rendu; else nonsoumis">
           <mat-card nodetails class="matcard matcard-green"  (click)=onClick(i) >
-            <mat-card-title > Assignment {{i+(limit*page)-9}}</mat-card-title>
+            <mat-card-title > Assignment {{i+1+(limit*(page-1))}}</mat-card-title>
             <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
             <p appRendu> {{assignment.nom}}</p>
             </mat-card>
@@ -94,7 +94,7 @@
 
               <ng-template #nonsoumis>
                 <mat-card nodetails class="matcard matcard-red"  (click)=onClick(i)>
-                  <mat-card-title > Assignment {{i+(limit*page)-9}}</mat-card-title>
+                  <mat-card-title > Assignment {{i+1+(limit*(page-1))}}</mat-card-title>
                   <mat-card-subtitle>Date limite : {{assignment.dateDeRendu | date}}</mat-card-subtitle>
                 <p appNonRendu>{{assignment.nom}}</p>
                   </mat-card>

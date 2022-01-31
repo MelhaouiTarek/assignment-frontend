@@ -73,17 +73,27 @@ getAssignments()
   .subscribe((data) => {
     // quand on rentre ici on sait que les données sont prêtes
     console.log('données reçues');
-    this.assignments = data.docs;
-    this.page = data.page;
-
-    this.limit = data.limit;
-    this.totalDocs = data.totalDocs;
-    this.totalPages = data.totalPages;
-    this.hasPrevPage = data.hasPrevPage;
-    this.prevPage = data.prevPage;
-    this.hasNextPage = data.hasNextPage;
-    this.nextPage = data.nextPage;
-    console.log('données reçues');
+    if(this.page>data.totalPages)
+    {
+      console.log('Page trop grande renvoi de la requete');
+      this.page=data.totalPages;
+      this.getAssignments()
+    }
+    else
+    {
+      this.assignments = data.docs;
+      this.page = data.page;
+  
+      this.limit = data.limit;
+      this.totalDocs = data.totalDocs;
+      this.totalPages = data.totalPages;
+      this.hasPrevPage = data.hasPrevPage;
+      this.prevPage = data.prevPage;
+      this.hasNextPage = data.hasNextPage;
+      this.nextPage = data.nextPage;
+      console.log('données reçues');
+    }
+  
   });
 }
 
@@ -128,7 +138,11 @@ delete(id:number)
           this.assignmentService.deleteAssignment(this.assignmentClick)
           .subscribe(message => {
              console.log(message);
-             this.getAssignments()
+             if(this.totalPages==this.page && this.hasPrevPage)
+             {
+               this.prevpage();
+             }
+             this.getAssignments();
            });
       }
     })
