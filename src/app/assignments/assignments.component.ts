@@ -77,6 +77,7 @@ getAssignments()
     {
       console.log('Page trop grande renvoi de la requete');
       this.page=data.totalPages;
+      if(this.totalPages!=0)
       this.getAssignments()
     }
     else
@@ -137,11 +138,7 @@ delete(id:number)
         if(this.assignmentClick) {
           this.assignmentService.deleteAssignment(this.assignmentClick)
           .subscribe(message => {
-             console.log(message);
-             if(this.totalPages==this.page && this.hasPrevPage)
-             {
-               this.prevpage();
-             }
+             console.log(message);        
              this.getAssignments();
            });
       }

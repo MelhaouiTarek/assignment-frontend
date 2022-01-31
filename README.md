@@ -9,7 +9,12 @@ Créer une plateforme de gestion des assignments avec une partie back end et une
 # Front end
 
 La partie du projet front end contient les notions de bases 
-    - 
+
+    - Créer des composants avec angular CLI (Components, Services...).
+    - Créer un routage entre les différentes pages avec l'implémentation d'un Auth Guard.
+    - Ajouter des modules Angular Material ou autres.
+    - Utiliser une API ou backend éxistant et l'implémenter a un front end.
+    - Lier entre les différents fichiers TS, HTML et CSS (ou SCSS).
 
 # Taches à réaliser:
 
@@ -18,7 +23,7 @@ La partie du projet front end contient les notions de bases
 - [ ] Créer une vidéo de ~1min montrant les fonctionalités réalisées
       - ?
 - [x] Meilleure présentation
-- [?] Meilleure pagination
+- [ ] Meilleure pagination - (?)
 - [x] Afficher les details depuis la liste de la page principale
 - [x] Supprimer depuis la liste principale
 - [x] Ajout de dialogue avant suppression
@@ -38,3 +43,4 @@ La partie du projet front end contient les notions de bases
         - Si on supprime l'élément 49, l'élement 50 prends sa place et ainsi de suite sans perdre ni la position du scroll ni la pagination.
         - Si on a uniquement 46 éléments et qu'on supprime le dernier, on n'affiche pas une liste vide mais on retourne à la page précédente.
         - Si on affiche un seul élément a la fois et qu'on soit sur la dernière page, changer la limite ne changeais pas la page, ce qui résultait à une page vide. Ce n'est plus le cas car changer la limite sur une page plus grande que le nombre de pages avec une nouvelle limite retourne la dernière page.
+    - Ajout de certains logs manuels comme lors du renvoie de la requête si la page demandée est suppérieure la dernière page disponible.
